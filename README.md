@@ -10,6 +10,8 @@
 Create a drawer animation emulating Scribit, AxiDraw extremely easy.
 
 ![](https://prnt.sc/rug1qw)
+![](https://prnt.sc/ruggud)
+![](https://prnt.sc/rugh1j)
 
 
 ### Requirements
@@ -26,20 +28,26 @@ Create a drawer animation emulating Scribit, AxiDraw extremely easy.
 ```
 
 
+**Start coding!** 
 
-
-**Start coding!** `package.json` and entry files are already set up for you, so don't worry about linking to your main file, typings, etc. Just keep those files with the same name.
+https://editor.p5js.org/doriclaudino/sketches/5UUjoEKRx
+```bash
+//let drawer = new p5Drawer.AxiDrawer()
+//let drawer = new p5Drawer.ScribitDrawer()
+let drawer = new p5Drawer.Drawer()
+drawer.image = //your image
+drawer.sound = //your sound
+drawer.moveTo(vector, [speed])
+```
 
 ### Features
 
- - Zero-setup. After running `npm install` things will setup for you :wink:
- - **[RollupJS](https://rollupjs.org/)** for multiple optimized bundles following the [standard convention](http://2ality.com/2017/04/setting-up-multi-platform-packages.html) and [Tree-shaking](https://alexjoverm.github.io/2017/03/06/Tree-shaking-with-Webpack-2-TypeScript-and-Babel/)
- - Tests, coverage and interactive watch mode using **[Jest](http://facebook.github.io/jest/)**
- - **[Prettier](https://github.com/prettier/prettier)** and **[TSLint](https://palantir.github.io/tslint/)** for code formatting and consistency
- - **Docs automatic generation and deployment** to `gh-pages`, using **[TypeDoc](http://typedoc.org/)**
- - Automatic types `(*.d.ts)` file generation
- - **[Travis](https://travis-ci.org)** integration and **[Coveralls](https://coveralls.io/)** report
- - (Optional) **Automatic releases and changelog**, using [Semantic release](https://github.com/semantic-release/semantic-release), [Commitizen](https://github.com/commitizen/cz-cli), [Conventional changelog](https://github.com/conventional-changelog/conventional-changelog) and [Husky](https://github.com/typicode/husky) (for the git hooks)
+ - Control speed
+ - Control soundSpeed based on speed
+ - Change sounds
+ - Change Images
+ - Center images
+ - Save internal steps
 
 ### Importing library
 
