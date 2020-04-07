@@ -4,6 +4,8 @@ import sourceMaps from 'rollup-plugin-sourcemaps'
 import camelCase from 'lodash.camelcase'
 import typescript from 'rollup-plugin-typescript2'
 import json from 'rollup-plugin-json'
+import copy from 'rollup-plugin-copy'
+import image from '@rollup/plugin-image';
 
 const pkg = require('./package.json')
 
@@ -11,20 +13,19 @@ const libraryName = 'p5.drawer'
 
 export default {
   input: `src/${libraryName}.ts`,
-  output: [
-    { file: pkg.main, name: camelCase(libraryName), format: 'umd', sourcemap: true },
-    { file: pkg.module, format: 'es', sourcemap: true }
-  ],
+  output: [{ file: pkg.module, format: 'iife', name: camelCase(libraryName), sourcemap: true }],
   // Indicate here external modules you don't wanna include in your bundle (i.e.: 'lodash')
   external: ['p5', 'p5/global', 'p5/lib/addons/p5.dom', 'p5/lib/addons/p5.sound'],
   watch: {
     include: 'src/**'
   },
   plugins: [
+    image(),
+
     // Allow json resolution
     json(),
     // Compile TypeScript files
-    typescript({ useTsconfigDeclarationDir: true }),
+    typescript({ useTsconfigDeclarationDir: true, objectHashIgnoreUnknownHack: true }),
     // Allow bundling cjs modules (unlike webpack, rollup doesn't understand cjs)
     commonjs(),
     // Allow node_modules resolution, so you can use 'external' to control
@@ -33,6 +34,14 @@ export default {
     resolve(),
 
     // Resolve source maps to the original source
-    sourceMaps()
+    sourceMaps(),
+
+    copy({
+      targets: [{ src: 'dist/*.*', dest: 'examples/lib/' }, { src: 'assets/images/*.*', dest: 'examples/assets/images/' }, { src: 'assets/sounds/*.*', dest: 'examples/assets/sounds/' }],
+      verbose: true,
+      copyOnce: true,
+      hook: 'onwrite',
+      overwrite:true,
+    })
   ]
 }

@@ -48,7 +48,7 @@ p5.prototype.initDrawer = function() {
 //@ts-ignore
 p5.prototype.registerMethod('init', p5.prototype.initDrawer)
 
-class Drawer {
+export class Drawer {
   _sketch: p5
   _speed: number
   _image: Image
@@ -72,6 +72,7 @@ class Drawer {
     this._saveSteps = true
     this._penTipPosition = this._sketch.createVector(-52, -128)
     this._steps = []
+    console.log(this)
   }
 
   get sketch() {
@@ -266,7 +267,7 @@ class Drawer {
   }
 }
 
-class AxiDrawer extends Drawer {
+export class AxiDrawer extends Drawer {
   constructor(p: p5) {
     super(p)
     this.speed = this.speed * 2
@@ -274,17 +275,10 @@ class AxiDrawer extends Drawer {
   }
 }
 
-class ScribitDrawer extends Drawer {
+export class ScribitDrawer extends Drawer {
   constructor(p: p5) {
     super(p)
     this.speed = this.speed * 2
     this.penTipPosition = this.sketch.createVector(-140, -108)
   }
-}
-
-module.exports = {
-  default: Drawer,
-  Drawer,
-  AxiDrawer,
-  ScribitDrawer
 }

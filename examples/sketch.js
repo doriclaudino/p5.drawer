@@ -1,0 +1,87 @@
+/**
+ * example using js
+ * window.p5Drawer is the namespace
+ */
+
+let canvas
+let drawer
+let userClickPositionOnCanvas
+let slider
+let radio
+
+//get mouse position-minus pencil margin
+function getMousePosition() {
+  return createVector(mouseX, mouseY)
+}
+
+function onUserClickOnMyCanvasAction() {
+  userClickPositionOnCanvas = getMousePosition()
+}
+
+function preload() {
+  initDrawer()
+}
+
+function getInstanceForRadio(optionSelected = 1) {
+  switch (parseInt(optionSelected)) {
+    case 2:
+      return new p5Drawer.AxiDrawer()
+    case 3:
+      return new p5Drawer.ScribitDrawer()
+    default:
+      return new p5Drawer.Drawer()
+  }
+}
+
+function onDrawerSelected() {
+  let newInstance = getInstanceForRadio(radio.value())  
+  if (drawer && drawer.steps.length) {
+    drawer.stopSound()
+    newInstance.steps = drawer.steps
+    newInstance.position = drawer.position
+    drawer = newInstance
+  } else {
+    drawer = newInstance
+  }
+}
+
+function setup() {
+  canvas = createCanvas(600, 600)
+  canvas.mouseClicked(onUserClickOnMyCanvasAction)
+  slider = createSlider(1, 100, 5)
+  radio = createRadio()
+  radio.option('default', 1)
+  radio.option('axiDraw-v3', 2)
+  radio.option('scribit', 3)
+  radio.changed(onDrawerSelected)
+}
+
+function draw() {
+  background(245)
+  let selectedDrawer = radio.value()
+  text(slider.value(), 10, 20)
+  if (drawer) {
+    text(drawer.targetReached, 10, 40)
+    text(drawer.targetDistance, 10, 60)
+    text(drawer.targetPosition, 10, 80)
+    text(drawer.position, 10, 100)
+    text(selectedDrawer, 10, 120)
+
+    if (drawer.steps && drawer.steps.length > 1) {
+      positions = drawer.steps
+      for (let i = 0; i < positions.length - 1; i++) {
+        let startPoint = positions[i]
+        let endPoint = positions[i + 1]
+        line(startPoint.x, startPoint.y, endPoint.x, endPoint.y)
+      }
+    }
+
+    if (userClickPositionOnCanvas) drawer.moveTo(userClickPositionOnCanvas, slider.value())
+
+    if (drawer.targetReached)
+      userClickPositionOnCanvas = createVector(
+        parseInt(random(100, height - 100)),
+        parseInt(random(100, height - 100))
+      )
+  }
+}

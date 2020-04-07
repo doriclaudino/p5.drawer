@@ -1,11 +1,11 @@
 {
-  "name": "p5-drawer",
+  "name": "p5.drawer",
   "version": "0.0.0",
   "description": "",
   "keywords": [],
-  "main": "dist/p5-drawer.umd.js",
-  "module": "dist/p5-drawer.es5.js",
-  "typings": "dist/types/p5-drawer.d.ts",
+  "main": "dist/p5.drawer.umd.js",
+  "module": "dist/p5.drawer.es5.js",
+  "typings": "dist/types/p5.drawer.d.ts",
   "files": [
     "dist"
   ],
@@ -84,6 +84,7 @@
   "devDependencies": {
     "@commitlint/cli": "^7.1.2",
     "@commitlint/config-conventional": "^7.1.2",
+    "@rollup/plugin-image": "^2.0.4",
     "@types/jest": "^23.3.2",
     "@types/node": "^10.11.0",
     "@types/p5": "^0.9.0",
@@ -104,6 +105,7 @@
     "rimraf": "^2.6.2",
     "rollup": "^0.67.0",
     "rollup-plugin-commonjs": "^9.1.8",
+    "rollup-plugin-copy": "^3.3.0",
     "rollup-plugin-json": "^3.1.0",
     "rollup-plugin-node-resolve": "^3.4.0",
     "rollup-plugin-sourcemaps": "^0.4.2",
