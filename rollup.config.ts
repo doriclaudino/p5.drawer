@@ -5,7 +5,7 @@ import camelCase from 'lodash.camelcase'
 import typescript from 'rollup-plugin-typescript2'
 import json from 'rollup-plugin-json'
 import copy from 'rollup-plugin-copy'
-import image from '@rollup/plugin-image';
+import image from '@rollup/plugin-image'
 
 const pkg = require('./package.json')
 
@@ -37,11 +37,11 @@ export default {
     sourceMaps(),
 
     copy({
-      targets: [{ src: 'dist/*.*', dest: 'examples/lib/' }, { src: 'assets/images/*.*', dest: 'examples/assets/images/' }, { src: 'assets/sounds/*.*', dest: 'examples/assets/sounds/' }],
+      targets: [{ src: 'dist/*.*', dest: 'examples/lib/' }],
       verbose: true,
       copyOnce: true,
       hook: 'onwrite',
-      overwrite:true,
+      overwrite: true
     })
   ]
 }
