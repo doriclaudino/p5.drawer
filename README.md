@@ -4,10 +4,10 @@
 [![Greenkeeper badge](https://badges.greenkeeper.io/alexjoverm/typescript-library-starter.svg)](https://greenkeeper.io/)
 
 Create a drawer animation emulating Scribit, AxiDraw extremely easy.
-
-![](https://prnt.sc/rug1qw)
-![](https://prnt.sc/ruggud)
-![](https://prnt.sc/rugh1j)
+<br>
+<img src="https://i.imgur.com/emokMlD.png" width="200">
+<img src="https://imgur.com/AevdDH0.png" width="200">
+<img src="https://imgur.com/nbt0qGb.png" width="200">
 
 
 ### Requirements
@@ -26,7 +26,7 @@ Create a drawer animation emulating Scribit, AxiDraw extremely easy.
 
 **Start coding!** 
 
-https://editor.p5js.org/doriclaudino/sketches/5UUjoEKRx
+[p5.drawer sketch](https://editor.p5js.org/doriclaudino/sketches/5UUjoEKRx)
 ```bash
 //let drawer = new p5Drawer.AxiDrawer()
 //let drawer = new p5Drawer.ScribitDrawer()
@@ -35,6 +35,9 @@ drawer.image = //your image
 drawer.sound = //your sound
 drawer.moveTo(vector, [speed])
 ```
+
+![](https://media.giphy.com/media/U3hHR6jI6XbOfdH9Ka/giphy.gif)
+
 
 ### Features
 
