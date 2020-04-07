@@ -59,7 +59,7 @@ export class Drawer {
   _penTipPosition: Vector
   _steps: Vector[]
 
-  constructor(p: p5) {
+  constructor(p?: p5) {
     //@ts-ignore
     this._sketch = p || window
     let indexName = this.constructor.name.toLowerCase()
@@ -268,7 +268,7 @@ export class Drawer {
 }
 
 export class AxiDrawer extends Drawer {
-  constructor(p: p5) {
+  constructor(p?: p5) {
     super(p)
     this.speed = this.speed * 2
     this.penTipPosition = this.sketch.createVector(-100, -52)
@@ -276,7 +276,7 @@ export class AxiDrawer extends Drawer {
 }
 
 export class ScribitDrawer extends Drawer {
-  constructor(p: p5) {
+  constructor(p?: p5) {
     super(p)
     this.speed = this.speed * 2
     this.penTipPosition = this.sketch.createVector(-140, -108)
