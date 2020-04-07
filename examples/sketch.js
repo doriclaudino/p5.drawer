@@ -48,24 +48,23 @@ function onDrawerSelected() {
 function setup() {
   canvas = createCanvas(600, 600)
   canvas.mouseClicked(onUserClickOnMyCanvasAction)
-  slider = createSlider(1, 100, 5)
-  radio = createRadio()
-  radio.option('default', 1)
-  radio.option('axiDraw-v3', 2)
-  radio.option('scribit', 3)
-  radio.changed(onDrawerSelected)
+  slider = createSlider(1, 100, 5);
+  radio = createRadio();
+  radio.option('default Pencil', 1);
+  radio.option('axiDraw-v3', 2);
+  radio.option('scribit', 3);
+  radio.changed(onDrawerSelected);
 }
 
 function draw() {
-  background(245)
-  let selectedDrawer = radio.value()
-  text(slider.value(), 10, 20)
+  background(245);
+  let selectedDrawer = radio.value();
+  text(`speed:${slider.value()}`, 10, 20)
   if (drawer) {
-    text(drawer.targetReached, 10, 40)
-    text(drawer.targetDistance, 10, 60)
-    text(drawer.targetPosition, 10, 80)
-    text(drawer.position, 10, 100)
-    text(selectedDrawer, 10, 120)
+    text(`targetReached: ${drawer.targetReached}`, 10, 40)
+    text(`targetDistance: ${drawer.targetDistance}`, 10, 60)
+    text(`targetVector(${drawer.targetPosition.x},${drawer.targetPosition.y})`, 10, 80)
+    text(`positiontVector(${drawer.position.x},${drawer.position.y})`, 10,100)
 
     if (drawer.steps && drawer.steps.length > 1) {
       positions = drawer.steps
