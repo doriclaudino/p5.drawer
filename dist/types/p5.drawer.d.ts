@@ -12,7 +12,7 @@ export declare class Drawer {
     _saveSteps: boolean;
     _penTipPosition: Vector;
     _steps: Vector[];
-    constructor(p: p5);
+    constructor(p?: p5);
     get sketch(): p5;
     set sketch(sketch: p5);
     get speed(): number;
@@ -65,8 +65,8 @@ export declare class Drawer {
     updateToNextPosition(replaceSpeed: number): void;
 }
 export declare class AxiDrawer extends Drawer {
-    constructor(p: p5);
+    constructor(p?: p5);
 }
 export declare class ScribitDrawer extends Drawer {
-    constructor(p: p5);
+    constructor(p?: p5);
 }

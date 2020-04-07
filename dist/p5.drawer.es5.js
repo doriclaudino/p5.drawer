@@ -1,7 +1,7 @@
 var p5Drawer = (function (exports,p5) {
     'use strict';
 
-    var p5__default = 'default' in p5 ? p5['default'] : p5;
+    p5 = p5 && p5.hasOwnProperty('default') ? p5['default'] : p5;
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -36,24 +36,24 @@ var p5Drawer = (function (exports,p5) {
         drawer: {
             image: new p5.Image(),
             sound: new p5.SoundFile(''),
-            imageFile: '../assets/images/pencildrawer.png',
-            soundFile: '../assets/sounds/pencildrawer.mp3'
+            imageFile: 'https://raw.githack.com/doriclaudino/p5.drawer/master/assets/images/pencildrawer.png',
+            soundFile: 'https://raw.githubusercontent.com/doriclaudino/p5.drawer/master/assets/sounds/pencildrawer.mp3'
         },
         axidrawer: {
             image: new p5.Image(),
             sound: new p5.SoundFile(''),
-            imageFile: '../assets/images/axidrawer.png',
-            soundFile: '../assets/sounds/axidrawer.mp3'
+            imageFile: 'https://raw.githack.com/doriclaudino/p5.drawer/master/assets/images/axidrawer.png',
+            soundFile: 'https://raw.githubusercontent.com/doriclaudino/p5.drawer/master/assets/sounds/axidrawer.mp3'
         },
         scribitdrawer: {
             image: new p5.Image(),
             sound: new p5.SoundFile(''),
-            imageFile: '../assets/images/scribitdrawer.png',
-            soundFile: '../assets/sounds/axidrawer.mp3'
+            imageFile: 'https://raw.githack.com/doriclaudino/p5.drawer/master/assets/images/scribitdrawer.png',
+            soundFile: 'https://raw.githubusercontent.com/doriclaudino/p5.drawer/master/assets/sounds/axidrawer.mp3'
         }
     };
     //@ts-ignore
-    p5__default.prototype.initDrawer = function () {
+    p5.prototype.initDrawer = function () {
         var _this = this;
         Object.keys(_loadedAssets).forEach(function (drawerName) {
             var drawerData = _loadedAssets[drawerName];
@@ -64,7 +64,7 @@ var p5Drawer = (function (exports,p5) {
         });
     };
     //@ts-ignore
-    p5__default.prototype.registerMethod('init', p5__default.prototype.initDrawer);
+    p5.prototype.registerMethod('init', p5.prototype.initDrawer);
     var Drawer = /** @class */ (function () {
         function Drawer(p) {
             //@ts-ignore

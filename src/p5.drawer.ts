@@ -16,22 +16,27 @@ interface IAssets {
 }
 let _loadedAssets: IAssets = {
   drawer: {
-    image: new Image(),
-    sound: new SoundFile(''),
-    imageFile: '../assets/images/pencildrawer.png',
-    soundFile: '../assets/sounds/pencildrawer.mp3'
+    image: new p5.Image(),
+    sound: new p5.SoundFile(''),
+    imageFile:
+      'https://raw.githack.com/doriclaudino/p5.drawer/master/assets/images/pencildrawer.png',
+    soundFile:
+      'https://raw.githubusercontent.com/doriclaudino/p5.drawer/master/assets/sounds/pencildrawer.mp3'
   },
   axidrawer: {
-    image: new Image(),
-    sound: new SoundFile(''),
-    imageFile: '../assets/images/axidrawer.png',
-    soundFile: '../assets/sounds/axidrawer.mp3'
+    image: new p5.Image(),
+    sound: new p5.SoundFile(''),
+    imageFile: 'https://raw.githack.com/doriclaudino/p5.drawer/master/assets/images/axidrawer.png',
+    soundFile:
+      'https://raw.githubusercontent.com/doriclaudino/p5.drawer/master/assets/sounds/axidrawer.mp3'
   },
   scribitdrawer: {
-    image: new Image(),
-    sound: new SoundFile(''),
-    imageFile: '../assets/images/scribitdrawer.png',
-    soundFile: '../assets/sounds/axidrawer.mp3'
+    image: new p5.Image(),
+    sound: new p5.SoundFile(''),
+    imageFile:
+      'https://raw.githack.com/doriclaudino/p5.drawer/master/assets/images/scribitdrawer.png',
+    soundFile:
+      'https://raw.githubusercontent.com/doriclaudino/p5.drawer/master/assets/sounds/axidrawer.mp3'
   }
 }
 

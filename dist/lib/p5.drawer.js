@@ -20,22 +20,22 @@ require("p5/lib/addons/p5.sound");
 require("p5/lib/addons/p5.dom");
 var _loadedAssets = {
     drawer: {
-        image: new p5_1.Image(),
-        sound: new p5_1.SoundFile(''),
-        imageFile: '../assets/images/pencildrawer.png',
-        soundFile: '../assets/sounds/pencildrawer.mp3'
+        image: new p5_1.default.Image(),
+        sound: new p5_1.default.SoundFile(''),
+        imageFile: 'https://raw.githack.com/doriclaudino/p5.drawer/master/assets/images/pencildrawer.png',
+        soundFile: 'https://raw.githubusercontent.com/doriclaudino/p5.drawer/master/assets/sounds/pencildrawer.mp3'
     },
     axidrawer: {
-        image: new p5_1.Image(),
-        sound: new p5_1.SoundFile(''),
-        imageFile: '../assets/images/axidrawer.png',
-        soundFile: '../assets/sounds/axidrawer.mp3'
+        image: new p5_1.default.Image(),
+        sound: new p5_1.default.SoundFile(''),
+        imageFile: 'https://raw.githack.com/doriclaudino/p5.drawer/master/assets/images/axidrawer.png',
+        soundFile: 'https://raw.githubusercontent.com/doriclaudino/p5.drawer/master/assets/sounds/axidrawer.mp3'
     },
     scribitdrawer: {
-        image: new p5_1.Image(),
-        sound: new p5_1.SoundFile(''),
-        imageFile: '../assets/images/scribitdrawer.png',
-        soundFile: '../assets/sounds/axidrawer.mp3'
+        image: new p5_1.default.Image(),
+        sound: new p5_1.default.SoundFile(''),
+        imageFile: 'https://raw.githack.com/doriclaudino/p5.drawer/master/assets/images/scribitdrawer.png',
+        soundFile: 'https://raw.githubusercontent.com/doriclaudino/p5.drawer/master/assets/sounds/axidrawer.mp3'
     }
 };
 //@ts-ignore
