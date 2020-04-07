@@ -1,7 +1,7 @@
 {
   "name": "p5.drawer",
-  "version": "0.0.0",
-  "description": "",
+  "version": "1.0.0",
+  "description": "generate drawer based on coordinate",
   "keywords": [],
   "main": "dist/p5.drawer.umd.js",
   "module": "dist/p5.drawer.es5.js",
@@ -12,7 +12,7 @@
   "author": "doriclaudino <dori.claudino@gmail.com>",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/doriclaudino/p5.drawer.git"
   },
   "license": "MIT",
   "engines": {
