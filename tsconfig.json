@@ -18,5 +18,11 @@
   },
   "include": [
     "src"
-  ]
+  ],
+  "exclude": [
+    "dist/",
+    "node_modules/",
+    "test/setup/setup-dom.js",
+    "test/setup/setup-node.js"
+  ],
 }
