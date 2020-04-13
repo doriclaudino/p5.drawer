@@ -6,18 +6,29 @@ import 'p5/lib/addons/p5.dom'
 
 /// <reference path="../node_modules/p5/lib/addons/p5.sound.js" />
 
-interface IAssets {
+interface IAssetInitInput {
   [key: string]: {
-    image: Image
-    imageFile: string
-    sound: SoundFile
-    soundFile: string
+    image?: Image | string
+    sound?: SoundFile | string
   }
 }
+
+interface IAssetBaseProps {
+  image?: Image
+  sound?: SoundFile
+}
+
+interface IAssetsProps extends IAssetBaseProps {
+  imageFile: string
+  soundFile: string
+}
+interface IAssets {
+  [key: string]: IAssetsProps
+}
+
 let _loadedAssets: IAssets = {
   drawer: {
     image: new p5.Image(),
-    sound: new p5.SoundFile(''),
     imageFile:
       'https://raw.githack.com/doriclaudino/p5.drawer/master/assets/images/pencildrawer.png',
     soundFile:
@@ -25,14 +36,12 @@ let _loadedAssets: IAssets = {
   },
   axidrawer: {
     image: new p5.Image(),
-    sound: new p5.SoundFile(''),
     imageFile: 'https://raw.githack.com/doriclaudino/p5.drawer/master/assets/images/axidrawer.png',
     soundFile:
       'https://raw.githubusercontent.com/doriclaudino/p5.drawer/master/assets/sounds/axidrawer.mp3'
   },
   scribitdrawer: {
     image: new p5.Image(),
-    sound: new p5.SoundFile(''),
     imageFile:
       'https://raw.githack.com/doriclaudino/p5.drawer/master/assets/images/scribitdrawer.png',
     soundFile:
@@ -40,14 +49,60 @@ let _loadedAssets: IAssets = {
   }
 }
 
+/**
+ * load drawers assets
+ * user can override it calling this method on preload()
+ */
 //@ts-ignore
-p5.prototype.initDrawer = function() {
-  Object.keys(_loadedAssets).forEach(drawerName => {
-    let drawerData = _loadedAssets[drawerName]
-    //@ts-ignore
-    drawerData.sound = this.loadSound(drawerData.soundFile)
-    drawerData.image = this.loadImage(drawerData.imageFile)
-    _loadedAssets[drawerName] = drawerData
+p5.prototype.initDrawer = function(resolveAssets: IAssetInitInput) {
+  let drawerNames = Object.keys(_loadedAssets)
+  drawerNames.forEach((drawerName: keyof IAssets) => {
+    let assetProps = _loadedAssets && _loadedAssets[drawerName]
+    let resolveProps = resolveAssets && resolveAssets[drawerName]
+
+    var callbackImg = (img: Image) => (_loadedAssets[drawerName].image = img)
+    var callbackSound = (sound: SoundFile) => (_loadedAssets[drawerName].sound = sound)
+
+    /**
+     * image
+     */
+    if (resolveProps && resolveProps.image) {
+      /**
+       * load the user url/path or defaultUrl
+       */
+      if (typeof resolveProps.image === 'string')
+        this.loadImage(resolveProps.image, callbackImg, (e: Event) =>
+          this.loadImage(assetProps.imageFile, callbackImg)
+        )
+      else {
+        //user pass an image already loaded
+        callbackImg(resolveProps.image as Image)
+      }
+    } else {
+      //try to load default url
+      this.loadImage(assetProps.imageFile, callbackImg)
+    }
+
+    /**
+     * sound
+     */
+    if (resolveProps && resolveProps.sound) {
+      //load the user url/path or defaultUrl
+      if (typeof resolveProps.sound === 'string')
+        //@ts-ignore
+        this.loadSound(resolveProps.sound, callbackImg, (e: Event) =>
+          //@ts-ignore
+          this.loadSound(assetProps.soundFile, callbackImg)
+        )
+      else {
+        //user pass an sound already loaded
+        callbackSound(resolveProps.sound as SoundFile)
+      }
+    } else {
+      //try to load default url
+      //@ts-ignore
+      this.loadSound(assetProps.soundFile, callbackSound)
+    }
   })
 }
 //@ts-ignore
@@ -56,8 +111,8 @@ p5.prototype.registerMethod('init', p5.prototype.initDrawer)
 export class Drawer {
   _sketch: p5
   _speed: number
-  _image: Image
-  _sound: SoundFile
+  _image?: Image
+  _sound?: SoundFile
   _position: Vector
   _targetPosition: Vector
   _saveSteps: boolean
@@ -67,17 +122,19 @@ export class Drawer {
   constructor(p?: p5) {
     //@ts-ignore
     this._sketch = p || window
-    let indexName = this.constructor.name.toLowerCase()
     if (!this.sketch) throw 'p5 not defined'
     this._speed = 2
-    this._image = _loadedAssets[indexName].image
-    this._sound = _loadedAssets[indexName].sound
+    this._image = _loadedAssets['drawer'].image
+    this._sound = _loadedAssets['drawer'].sound
     this._position = this._sketch.createVector(0, 0)
     this._targetPosition = this._sketch.createVector(0, 0)
     this._saveSteps = true
     this._penTipPosition = this._sketch.createVector(-52, -128)
     this._steps = []
-    console.log(this)
+    if (!this.image || !this.sound)
+      console.warn(
+        `Make sure to load the image and sound on preload(), we remove the boths from build. See the example folder.`
+      )
   }
 
   get sketch() {
@@ -153,7 +210,7 @@ export class Drawer {
   }
 
   stopSound() {
-    this.sound.stop()
+    this.sound && this.sound.stop()
   }
 
   /**
@@ -185,10 +242,10 @@ export class Drawer {
    */
   playAudio(replaceSpeed: number) {
     if (this.hasToMove) {
-      if (!this.sound.isPlaying()) {
+      if (this.sound && !this.sound.isPlaying()) {
         this.sound.play()
       }
-    } else this.sound.stop()
+    } else this.sound && this.sound.stop()
     this.applySoundSpeed(replaceSpeed)
   }
 
@@ -197,7 +254,7 @@ export class Drawer {
     //todo create a map for control the soundspeed, ex: from 1 to 100  map to 0.5 to 4
     let soundSpeed = this.sketch.map(currentSpeed, 1, 100, 0.5, 4)
     soundSpeed = this.sketch.constrain(soundSpeed, 0.01, 4)
-    this.sound.rate(soundSpeed)
+    this.sound && this.sound.rate(soundSpeed)
   }
 
   /**
@@ -224,7 +281,7 @@ export class Drawer {
     this.sketch.translate(this.penTipPosition)
 
     //draw an image as last element to override everythin an maitain the shadow effect
-    this.sketch.image(this.image, this.position.x, this.position.y)
+    if (this.image) this.sketch.image(this.image, this.position.x, this.position.y)
     this.sketch.pop()
   }
 
@@ -275,6 +332,8 @@ export class Drawer {
 export class AxiDrawer extends Drawer {
   constructor(p?: p5) {
     super(p)
+    this._image = _loadedAssets['axidrawer'].image
+    this._sound = _loadedAssets['axidrawer'].sound
     this.speed = this.speed * 2
     this.penTipPosition = this.sketch.createVector(-100, -52)
   }
@@ -283,6 +342,8 @@ export class AxiDrawer extends Drawer {
 export class ScribitDrawer extends Drawer {
   constructor(p?: p5) {
     super(p)
+    this._image = _loadedAssets['scribitdrawer'].image
+    this._sound = _loadedAssets['scribitdrawer'].sound
     this.speed = this.speed * 2
     this.penTipPosition = this.sketch.createVector(-140, -108)
   }

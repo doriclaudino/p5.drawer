@@ -21,32 +21,74 @@ require("p5/lib/addons/p5.dom");
 var _loadedAssets = {
     drawer: {
         image: new p5_1.default.Image(),
-        sound: new p5_1.default.SoundFile(''),
         imageFile: 'https://raw.githack.com/doriclaudino/p5.drawer/master/assets/images/pencildrawer.png',
         soundFile: 'https://raw.githubusercontent.com/doriclaudino/p5.drawer/master/assets/sounds/pencildrawer.mp3'
     },
     axidrawer: {
         image: new p5_1.default.Image(),
-        sound: new p5_1.default.SoundFile(''),
         imageFile: 'https://raw.githack.com/doriclaudino/p5.drawer/master/assets/images/axidrawer.png',
         soundFile: 'https://raw.githubusercontent.com/doriclaudino/p5.drawer/master/assets/sounds/axidrawer.mp3'
     },
     scribitdrawer: {
         image: new p5_1.default.Image(),
-        sound: new p5_1.default.SoundFile(''),
         imageFile: 'https://raw.githack.com/doriclaudino/p5.drawer/master/assets/images/scribitdrawer.png',
         soundFile: 'https://raw.githubusercontent.com/doriclaudino/p5.drawer/master/assets/sounds/axidrawer.mp3'
     }
 };
+/**
+ * load drawers assets
+ * user can override it calling this method on preload()
+ */
 //@ts-ignore
-p5_1.default.prototype.initDrawer = function () {
+p5_1.default.prototype.initDrawer = function (resolveAssets) {
     var _this = this;
-    Object.keys(_loadedAssets).forEach(function (drawerName) {
-        var drawerData = _loadedAssets[drawerName];
-        //@ts-ignore
-        drawerData.sound = _this.loadSound(drawerData.soundFile);
-        drawerData.image = _this.loadImage(drawerData.imageFile);
-        _loadedAssets[drawerName] = drawerData;
+    var drawerNames = Object.keys(_loadedAssets);
+    drawerNames.forEach(function (drawerName) {
+        var assetProps = _loadedAssets && _loadedAssets[drawerName];
+        var resolveProps = resolveAssets && resolveAssets[drawerName];
+        var callbackImg = function (img) { return (_loadedAssets[drawerName].image = img); };
+        var callbackSound = function (sound) { return (_loadedAssets[drawerName].sound = sound); };
+        /**
+         * image
+         */
+        if (resolveProps && resolveProps.image) {
+            /**
+             * load the user url/path or defaultUrl
+             */
+            if (typeof resolveProps.image === 'string')
+                _this.loadImage(resolveProps.image, callbackImg, function (e) {
+                    return _this.loadImage(assetProps.imageFile, callbackImg);
+                });
+            else {
+                //user pass an image already loaded
+                callbackImg(resolveProps.image);
+            }
+        }
+        else {
+            //try to load default url
+            _this.loadImage(assetProps.imageFile, callbackImg);
+        }
+        /**
+         * sound
+         */
+        if (resolveProps && resolveProps.sound) {
+            //load the user url/path or defaultUrl
+            if (typeof resolveProps.sound === 'string')
+                //@ts-ignore
+                _this.loadSound(resolveProps.sound, callbackImg, function (e) {
+                    //@ts-ignore
+                    return _this.loadSound(assetProps.soundFile, callbackImg);
+                });
+            else {
+                //user pass an sound already loaded
+                callbackSound(resolveProps.sound);
+            }
+        }
+        else {
+            //try to load default url
+            //@ts-ignore
+            _this.loadSound(assetProps.soundFile, callbackSound);
+        }
     });
 };
 //@ts-ignore
@@ -55,18 +97,18 @@ var Drawer = /** @class */ (function () {
     function Drawer(p) {
         //@ts-ignore
         this._sketch = p || window;
-        var indexName = this.constructor.name.toLowerCase();
         if (!this.sketch)
             throw 'p5 not defined';
         this._speed = 2;
-        this._image = _loadedAssets[indexName].image;
-        this._sound = _loadedAssets[indexName].sound;
+        this._image = _loadedAssets['drawer'].image;
+        this._sound = _loadedAssets['drawer'].sound;
         this._position = this._sketch.createVector(0, 0);
         this._targetPosition = this._sketch.createVector(0, 0);
         this._saveSteps = true;
         this._penTipPosition = this._sketch.createVector(-52, -128);
         this._steps = [];
-        console.log(this);
+        if (!this.image || !this.sound)
+            console.warn("Make sure to load the image and sound on preload(), we remove the boths from build. See the example folder.");
     }
     Object.defineProperty(Drawer.prototype, "sketch", {
         get: function () {
@@ -159,7 +201,7 @@ var Drawer = /** @class */ (function () {
         configurable: true
     });
     Drawer.prototype.stopSound = function () {
-        this.sound.stop();
+        this.sound && this.sound.stop();
     };
     Object.defineProperty(Drawer.prototype, "hasToMove", {
         /**
@@ -194,12 +236,12 @@ var Drawer = /** @class */ (function () {
      */
     Drawer.prototype.playAudio = function (replaceSpeed) {
         if (this.hasToMove) {
-            if (!this.sound.isPlaying()) {
+            if (this.sound && !this.sound.isPlaying()) {
                 this.sound.play();
             }
         }
         else
-            this.sound.stop();
+            this.sound && this.sound.stop();
         this.applySoundSpeed(replaceSpeed);
     };
     Drawer.prototype.applySoundSpeed = function (replaceSpeed) {
@@ -207,7 +249,7 @@ var Drawer = /** @class */ (function () {
         //todo create a map for control the soundspeed, ex: from 1 to 100  map to 0.5 to 4
         var soundSpeed = this.sketch.map(currentSpeed, 1, 100, 0.5, 4);
         soundSpeed = this.sketch.constrain(soundSpeed, 0.01, 4);
-        this.sound.rate(soundSpeed);
+        this.sound && this.sound.rate(soundSpeed);
     };
     /**
      * @param coordinate vector where you want to move
@@ -231,7 +273,8 @@ var Drawer = /** @class */ (function () {
         this.sketch.push();
         this.sketch.translate(this.penTipPosition);
         //draw an image as last element to override everythin an maitain the shadow effect
-        this.sketch.image(this.image, this.position.x, this.position.y);
+        if (this.image)
+            this.sketch.image(this.image, this.position.x, this.position.y);
         this.sketch.pop();
     };
     /**
@@ -278,6 +321,8 @@ var AxiDrawer = /** @class */ (function (_super) {
     __extends(AxiDrawer, _super);
     function AxiDrawer(p) {
         var _this = _super.call(this, p) || this;
+        _this._image = _loadedAssets['axidrawer'].image;
+        _this._sound = _loadedAssets['axidrawer'].sound;
         _this.speed = _this.speed * 2;
         _this.penTipPosition = _this.sketch.createVector(-100, -52);
         return _this;
@@ -289,6 +334,8 @@ var ScribitDrawer = /** @class */ (function (_super) {
     __extends(ScribitDrawer, _super);
     function ScribitDrawer(p) {
         var _this = _super.call(this, p) || this;
+        _this._image = _loadedAssets['scribitdrawer'].image;
+        _this._sound = _loadedAssets['scribitdrawer'].sound;
         _this.speed = _this.speed * 2;
         _this.penTipPosition = _this.sketch.createVector(-140, -108);
         return _this;

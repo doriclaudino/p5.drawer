@@ -5,8 +5,8 @@ import 'p5/lib/addons/p5.dom';
 export declare class Drawer {
     _sketch: p5;
     _speed: number;
-    _image: Image;
-    _sound: SoundFile;
+    _image?: Image;
+    _sound?: SoundFile;
     _position: Vector;
     _targetPosition: Vector;
     _saveSteps: boolean;
@@ -17,10 +17,10 @@ export declare class Drawer {
     set sketch(sketch: p5);
     get speed(): number;
     set speed(speed: number);
-    get sound(): p5.SoundFile;
-    set sound(sound: p5.SoundFile);
-    get image(): p5.Image;
-    set image(image: p5.Image);
+    get sound(): p5.SoundFile | undefined;
+    set sound(sound: p5.SoundFile | undefined);
+    get image(): p5.Image | undefined;
+    set image(image: p5.Image | undefined);
     get steps(): p5.Vector[];
     set steps(steps: p5.Vector[]);
     get position(): p5.Vector;
