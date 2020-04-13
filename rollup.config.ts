@@ -6,6 +6,7 @@ import typescript from 'rollup-plugin-typescript2'
 import json from 'rollup-plugin-json'
 import copy from 'rollup-plugin-copy'
 import image from '@rollup/plugin-image'
+import uglify from 'rollup-plugin-uglify'
 
 const pkg = require('./package.json')
 
@@ -33,11 +34,13 @@ export default {
     // https://github.com/rollup/rollup-plugin-node-resolve#usage
     resolve(),
 
+    uglify.uglify(),
+
     // Resolve source maps to the original source
     sourceMaps(),
 
     copy({
-      targets: [{ src: 'dist/*.*', dest: 'examples/lib/' }],
+      targets: [{ src: 'dist/*.*', dest: 'examples/' }, { src: 'assets/**/*.*', dest: 'examples/' }],
       verbose: true,
       copyOnce: true,
       hook: 'onwrite',
