@@ -34,13 +34,13 @@ export default {
     // https://github.com/rollup/rollup-plugin-node-resolve#usage
     resolve(),
 
-    uglify.uglify(),
+    //uglify.uglify(),
 
     // Resolve source maps to the original source
-    sourceMaps(),
+    //sourceMaps(),
 
     copy({
-      targets: [{ src: 'dist/*.*', dest: 'examples/' }, { src: 'assets/**/*.*', dest: 'examples/' }],
+      targets: [{ src: 'dist/*.*', dest: ['examples/','test/testDeps/'] }, { src: 'assets/**/*.*', dest: 'examples/' }],
       verbose: true,
       copyOnce: true,
       hook: 'onwrite',

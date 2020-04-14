@@ -1,0 +1,30 @@
+
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>TESTS</title>
+	<script src="./testDeps/p5.js"></script>
+    <script src="./testDeps/p5.sound.js"></script>    
+	<script>
+		window.setup = function setup() {};
+		window.preload = function preload() {};		
+		interval = setInterval(() => {
+			if(typeof window['initDrawer'] === 'function'){
+				window.initDrawer();
+				clearInterval(interval);
+			}
+		}, 200);
+		new p5();
+	</script>
+	<script src="./testDeps/mocha.js"></script>
+	<script data-main="test.js" src="./testDeps/require.js"></script>
+	<script src="./testDeps/p5.drawer.es5.js"></script>
+	<link rel="stylesheet" href="./testDeps/mocha.css" />
+</head>
+<body>
+	<div id="mocha"></div>
+	<script>
+		mocha.setup('bdd')
+	</script>
+</body>
+</html>

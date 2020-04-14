@@ -30,20 +30,21 @@ let _loadedAssets: IAssets = {
   drawer: {
     image: new p5.Image(),
     imageFile:
-      'https://raw.githack.com/doriclaudino/p5.drawer/master/assets/images/pencildrawer.png',
+      'https://raw.githubusercontent.com/doriclaudino/p5.drawer/master/assets/images/pencildrawer.png',
     soundFile:
       'https://raw.githubusercontent.com/doriclaudino/p5.drawer/master/assets/sounds/pencildrawer.mp3'
   },
   axidrawer: {
     image: new p5.Image(),
-    imageFile: 'https://raw.githack.com/doriclaudino/p5.drawer/master/assets/images/axidrawer.png',
+    imageFile:
+      'https://raw.githubusercontent.com/doriclaudino/p5.drawer/master/assets/images/axidrawer.png',
     soundFile:
       'https://raw.githubusercontent.com/doriclaudino/p5.drawer/master/assets/sounds/axidrawer.mp3'
   },
   scribitdrawer: {
     image: new p5.Image(),
     imageFile:
-      'https://raw.githack.com/doriclaudino/p5.drawer/master/assets/images/scribitdrawer.png',
+      'https://raw.githubusercontent.com/doriclaudino/p5.drawer/master/assets/images/scribitdrawer.png',
     soundFile:
       'https://raw.githubusercontent.com/doriclaudino/p5.drawer/master/assets/sounds/axidrawer.mp3'
   }
@@ -54,62 +55,22 @@ let _loadedAssets: IAssets = {
  * user can override it calling this method on preload()
  */
 //@ts-ignore
-p5.prototype.initDrawer = function(resolveAssets: IAssetInitInput) {
+p5.prototype.initDrawer = function() {
   let drawerNames = Object.keys(_loadedAssets)
   drawerNames.forEach((drawerName: keyof IAssets) => {
-    let assetProps = _loadedAssets && _loadedAssets[drawerName]
-    let resolveProps = resolveAssets && resolveAssets[drawerName]
-
-    var callbackImg = (img: Image) => (_loadedAssets[drawerName].image = img)
-    var callbackSound = (sound: SoundFile) => (_loadedAssets[drawerName].sound = sound)
-
-    /**
-     * image
-     */
-    if (resolveProps && resolveProps.image) {
-      /**
-       * load the user url/path or defaultUrl
-       */
-      if (typeof resolveProps.image === 'string')
-        this.loadImage(resolveProps.image, callbackImg, (e: Event) =>
-          this.loadImage(assetProps.imageFile, callbackImg)
-        )
-      else {
-        //user pass an image already loaded
-        callbackImg(resolveProps.image as Image)
-      }
-    } else {
-      //try to load default url
-      this.loadImage(assetProps.imageFile, callbackImg)
-    }
-
-    /**
-     * sound
-     */
-    if (resolveProps && resolveProps.sound) {
-      //load the user url/path or defaultUrl
-      if (typeof resolveProps.sound === 'string')
-        //@ts-ignore
-        this.loadSound(resolveProps.sound, callbackImg, (e: Event) =>
-          //@ts-ignore
-          this.loadSound(assetProps.soundFile, callbackImg)
-        )
-      else {
-        //user pass an sound already loaded
-        callbackSound(resolveProps.sound as SoundFile)
-      }
-    } else {
-      //try to load default url
-      //@ts-ignore
-      this.loadSound(assetProps.soundFile, callbackSound)
-    }
+    let asset = _loadedAssets[drawerName]
+    _loadedAssets[drawerName].image = this.loadImage(asset.imageFile)
+    //@ts-ignore
+    _loadedAssets[drawerName].sound = this.loadSound(asset.soundFile)
   })
 }
 //@ts-ignore
 p5.prototype.registerMethod('init', p5.prototype.initDrawer)
+//@ts-ignore
+p5.prototype.registerPreloadMethod('initDrawer', p5.prototype)
 
 export class Drawer {
-  _sketch: p5
+  _sketch: p5 | any
   _speed: number
   _image?: Image
   _sound?: SoundFile
@@ -120,9 +81,8 @@ export class Drawer {
   _steps: Vector[]
 
   constructor(p?: p5) {
-    //@ts-ignore
-    this._sketch = p || window
-    if (!this.sketch) throw 'p5 not defined'
+    this._sketch = p ? p : window
+    if (!this._sketch) throw 'p5 not defined'
     this._speed = 2
     this._image = _loadedAssets['drawer'].image
     this._sound = _loadedAssets['drawer'].sound
@@ -131,7 +91,7 @@ export class Drawer {
     this._saveSteps = true
     this._penTipPosition = this._sketch.createVector(-52, -128)
     this._steps = []
-    if (!this.image || !this.sound)
+    if (!this._image || !this._sound)
       console.warn(
         `Make sure to load the image and sound on preload(), we remove the boths from build. See the example folder.`
       )
@@ -332,8 +292,8 @@ export class Drawer {
 export class AxiDrawer extends Drawer {
   constructor(p?: p5) {
     super(p)
-    this._image = _loadedAssets['axidrawer'].image
-    this._sound = _loadedAssets['axidrawer'].sound
+    this.image = _loadedAssets['axidrawer'].image
+    this.sound = _loadedAssets['axidrawer'].sound
     this.speed = this.speed * 2
     this.penTipPosition = this.sketch.createVector(-100, -52)
   }
@@ -342,8 +302,8 @@ export class AxiDrawer extends Drawer {
 export class ScribitDrawer extends Drawer {
   constructor(p?: p5) {
     super(p)
-    this._image = _loadedAssets['scribitdrawer'].image
-    this._sound = _loadedAssets['scribitdrawer'].sound
+    this.image = _loadedAssets['scribitdrawer'].image
+    this.sound = _loadedAssets['scribitdrawer'].sound
     this.speed = this.speed * 2
     this.penTipPosition = this.sketch.createVector(-140, -108)
   }

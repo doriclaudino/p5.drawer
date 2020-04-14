@@ -3,7 +3,7 @@ import 'p5/global';
 import 'p5/lib/addons/p5.sound';
 import 'p5/lib/addons/p5.dom';
 export declare class Drawer {
-    _sketch: p5;
+    _sketch: p5 | any;
     _speed: number;
     _image?: Image;
     _sound?: SoundFile;
@@ -13,8 +13,8 @@ export declare class Drawer {
     _penTipPosition: Vector;
     _steps: Vector[];
     constructor(p?: p5);
-    get sketch(): p5;
-    set sketch(sketch: p5);
+    get sketch(): any;
+    set sketch(sketch: any);
     get speed(): number;
     set speed(speed: number);
     get sound(): p5.SoundFile | undefined;
@@ -40,7 +40,7 @@ export declare class Drawer {
     /**
      * 2d distance
      */
-    get targetDistance(): number;
+    get targetDistance(): any;
     /**
      * create a loop
      * to-do: play with loop speed, based on speed or penstyle
