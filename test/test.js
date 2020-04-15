@@ -1,19 +1,14 @@
 require.config({
-  baseUrl:'./',
-  paths : {
-    'lib' : '../lib',
-    'chai' : './testDeps/chai',
-    'sinon': './testDeps/sinon'
-  }
+  baseUrl: './',
+  paths: {
+    lib: './testDeps',
+    chai: './testDeps/chai',
+    sinon: './testDeps/sinon',
+  },
 });
 
-//copy from p5sound
-var allTests = [
-  'tests/p5.Effect' 
-];
+var allTests = [ 'tests/p5.Drawer'];
 
-p5.prototype.masterVolume(0);
-
-require(allTests, function(){
+require(allTests, function () {
   mocha.run();
 });
