@@ -10,7 +10,7 @@ const autoInjectVersionConfig = {
   components: {
     AutoIncreaseVersion: false,
     InjectAsComment: true,
-    InjectByTag: false
+    InjectByTag: false,
   },
   componentsOptions: {
     InjectAsComment: {
@@ -18,18 +18,18 @@ const autoInjectVersionConfig = {
       dateFormat: 'yyyy-mm-dd',
       multiLineCommentType: true,
     },
-  }
+  },
 };
 
 module.exports = {
   context: __dirname + '/src',
   entry: {
     'p5.drawer': './index.js',
-    'p5.drawer.min': './index.js'
+    'p5.drawer.min': './index.js',
   },
   output: {
     // where we want to output built files
-    path: __dirname + "/lib"
+    path: __dirname + '/dist',
   },
   mode: 'production',
   devtool: 'source-map',
@@ -41,24 +41,24 @@ module.exports = {
       banner: fs.readFileSync('./fragments/before.frag').toString(),
       raw: true,
     }),
-    new WebpackAutoInject(autoInjectVersionConfig)
+    new WebpackAutoInject(autoInjectVersionConfig),
   ],
   module: {
     rules: [
       {
         test: /node_modules(\.*)/,
         use: {
-          loader: 'uglify-loader'
-        }
+          loader: 'uglify-loader',
+        },
       },
       {
         test: /\.js$/,
         exclude: /(node_modules)/,
         use: {
-          loader: 'babel-loader'
-        }
+          loader: 'babel-loader',
+        },
       },
-    ]
+    ],
   },
   optimization: {
     minimize: true,
@@ -69,19 +69,19 @@ module.exports = {
         parallel: true,
         uglifyOptions: {
           compress: {
-            drop_console: true
+            drop_console: true,
           },
           ecma: 6,
           mangle: true,
           output: {
-            comments: false
-          }
+            comments: false,
+          },
         },
         sourceMap: true,
-      })
-    ]
+      }),
+    ],
   },
   resolve: {
-    modules: [path.resolve(__dirname, 'src'), 'node_modules']
-  }
-}
+    modules: [path.resolve(__dirname, 'src'), 'node_modules'],
+  },
+};
