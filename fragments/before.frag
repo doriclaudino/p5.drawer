@@ -26,6 +26,4 @@
  *   - Daniel Shiffmmann @shiffmann https://github.com/shiffman
  *   - Stefano Padoan @stefanopadoan.art
  *   - Samer Dabra @spongenuity
- *
- *   Web Audio API: http://w3.org/TR/webaudio/
  */

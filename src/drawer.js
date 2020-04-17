@@ -9,7 +9,7 @@ define(function () {
       this._position = p5.instance.createVector(0, 0);
       this._targetPosition = p5.instance.createVector(0, 0);
       this._saveSteps = true;
-      this._penTipPosition = tipPosition || p5.instance.createVector(-52, -128);
+      this._penTipPosition = tipPosition || p5.instance.createVector(0, 0);
       this._steps = [];
       if (!this._image || !this._sound)
         console.warn(
@@ -115,10 +115,10 @@ define(function () {
     playAudio(replaceSpeed) {
       if (this.hasToMove) {
         if (this.sound && !this.sound.isPlaying()) {
+          this.applySoundSpeed(replaceSpeed);
           this.sound.play();
         }
       } else this.sound && this.sound.stop();
-      this.applySoundSpeed(replaceSpeed);
     }
 
     applySoundSpeed(replaceSpeed) {
@@ -150,7 +150,7 @@ define(function () {
 
     draw() {
       p5.instance.push();
-      p5.instance.translate(this.penTipPosition);
+      if (this.penTipPosition) p5.instance.translate(this.penTipPosition);
 
       //draw an image as last element to override everythin an maitain the shadow effect
       if (this.image)
