@@ -21,15 +21,33 @@ const autoInjectVersionConfig = {
   },
 };
 
-module.exports = {
+const common = {
   context: __dirname + '/src',
-  entry: {
-    'p5.drawer': './index.js',
-    'p5.drawer.min': './index.js',
-  },
   output: {
     // where we want to output built files
     path: __dirname + '/dist',
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /(node_modules)/,
+        use: {
+          loader: 'babel-loader',
+        },
+      },
+    ],
+  },
+  resolve: {
+    modules: [path.resolve(__dirname, 'src'), 'node_modules'],
+  },
+};
+
+const prod = {
+  ...common,
+  entry: {
+    'p5.drawer': './index.js',
+    'p5.drawer.min': './index.js',
   },
   mode: 'production',
   devtool: 'source-map',
@@ -45,17 +63,11 @@ module.exports = {
   ],
   module: {
     rules: [
+      ...common.module.rules,
       {
         test: /node_modules(\.*)/,
         use: {
           loader: 'uglify-loader',
-        },
-      },
-      {
-        test: /\.js$/,
-        exclude: /(node_modules)/,
-        use: {
-          loader: 'babel-loader',
         },
       },
     ],
@@ -81,7 +93,17 @@ module.exports = {
       }),
     ],
   },
-  resolve: {
-    modules: [path.resolve(__dirname, 'src'), 'node_modules'],
+};
+
+const dev = {
+  ...common,
+  mode: 'development',
+  entry: {
+    'p5.drawer': './index.js',
   },
+};
+
+module.exports = {
+  prod,
+  dev,
 };

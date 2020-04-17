@@ -26,9 +26,28 @@ module.exports = function (grunt) {
         src: ['src/**/*.js', 'test/tests/**/*.js'],
       },
     },
+    watch: {
+      options: {
+        livereload: true,
+      },
+      distDir: {
+        files: ['src/**/*.js'],
+        tasks: ['devBuild'],
+      },
+      testDir: {
+        files: ['test/**/**/*.js', 'test/**/**/*.html'],
+        tasks: [],
+      },
+      configFiles: {
+        files: ['Gruntfile.js', 'webpack.config.js'],
+        options: {
+          reload: true,
+        },
+      },
+    },
     webpack: {
-      prod: webpackConfig,
-      dev: { ...webpackConfig, watch: true },
+      prod: webpackConfig.prod,
+      dev: webpackConfig.dev,
     },
     open: {
       testChrome: {
@@ -48,8 +67,8 @@ module.exports = function (grunt) {
       server: {
         options: {
           port: 8000,
-          livereload: 35727,
-          hostname: '*',
+          livereload: 35729,
+          hostname: 'localhost',
         },
       },
     },
@@ -60,10 +79,17 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-open');
   grunt.loadNpmTasks('grunt-decomment');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
   grunt.registerTask('lint', ['eslint:source']);
-  grunt.registerTask('default', ['webpack:prod', 'decomment']);
-  grunt.registerTask('dev', ['connect', 'webpack:dev', 'decomment']);
+  grunt.registerTask('default', ['lint', 'webpack:prod', 'decomment']);
+  grunt.registerTask('devBuild', ['webpack:dev']);
+  grunt.registerTask('dev', [
+    'connect',
+    'devBuild',
+    'open:testChrome',
+    'watch',
+  ]);
   grunt.registerTask('serve', 'connect:server:keepalive');
   grunt.registerTask('run-tests', ['serve', 'open']);
 };
