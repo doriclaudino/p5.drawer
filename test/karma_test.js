@@ -1,10 +1,10 @@
 'use strict';
 const p5 = require('p5');
 window.p5 = p5;
-
 require('../dist/p5.drawer');
 
 before((done) => {
+  window.p5 = p5;
   new p5();
   window.setup = function () {};
   window.preload = function () {};
@@ -41,5 +41,18 @@ describe('Array', () => {
       d.moveTo(10, 10, 20);
       chai.assert.equal(d.position.x, 10);
     });
+
+    it('can load Image from assets', function (done)  {
+      loadImage('/base/test/testAssets/pencildrawer.png', function () {
+        done();
+      });
+    });
+
+    // it('can load Sound from assets', function (done) {
+    //   this.timeout(5000)
+    //   loadSound('http://localhost:8000/test/testAssets/axidrawer.mp3', function () {
+    //     done();
+    //   });
+    // });
   });
 });

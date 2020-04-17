@@ -48,6 +48,6 @@
     "build2": "webpack --env karma",
     "test2": "karma start --single-run --browsers ChromeHeadless karma.conf.js",
     "run2": "yarn build2 && yarn test2",
-    "run3": "grunt run3"
+    "coverage": "grunt coverage"
   }
 }

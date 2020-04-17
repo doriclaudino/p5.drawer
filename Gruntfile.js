@@ -1,4 +1,4 @@
-const webpackConfig = require('./webpack.config.js');
+const webpackConfig = require('./webpack.config1.js');
 
 module.exports = function (grunt) {
   grunt.initConfig({
@@ -45,9 +45,16 @@ module.exports = function (grunt) {
         },
       },
     },
+    karma: {
+      unit: {
+        configFile: 'karma.conf.js',
+        singleRun: true,
+      },
+    },
     webpack: {
       prod: webpackConfig.prod,
       dev: webpackConfig.dev,
+      test: webpackConfig.test,
     },
     open: {
       testChrome: {
@@ -80,6 +87,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-open');
   grunt.loadNpmTasks('grunt-decomment');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-karma');
 
   grunt.registerTask('lint', ['eslint:source']);
   grunt.registerTask('default', ['lint', 'webpack:prod', 'decomment']);
@@ -92,4 +100,5 @@ module.exports = function (grunt) {
   ]);
   grunt.registerTask('serve', 'connect:server:keepalive');
   grunt.registerTask('run-tests', ['serve', 'open']);
+  grunt.registerTask('coverage', ['karma']);
 };
