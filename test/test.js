@@ -7,7 +7,7 @@ require.config({
   },
 });
 
-var allTests = [ 'tests/p5.Drawer'];
+var allTests = ['tests/p5.Drawer'];
 
 require(allTests, function () {
   mocha.run();

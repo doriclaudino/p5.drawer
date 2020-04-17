@@ -8,14 +8,19 @@ define(['chai'], function (chai) {
     this.timeout(1000);
     var drawer = createDrawer();
 
+    after(function (done) {
+      p5 && p5.instance.remove();
+      done();
+    });
+
     it('can create instance', function () {
       assert.property(drawer, 'speed');
       expect(drawer).to.exist;
     });
 
-
     it('can load Sound from assets', function (done) {
-      loadSound('./testAssets/axidrawer.mp3', function () {
+      loadSound('./testAssets/axidrawer.mp3', function (sound) {
+        sound.dispose();
         done();
       });
     });
@@ -24,6 +29,7 @@ define(['chai'], function (chai) {
       loadImage('./testAssets/axidrawer.png', function () {
         done();
       });
+      //img.dispose();
     });
   });
 });
