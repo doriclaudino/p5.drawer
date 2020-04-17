@@ -15,24 +15,39 @@
     "amdclean": "~2.0",
     "babel-loader": "^8.0.6",
     "babel-plugin-preval": "^3.0.1",
+    "chai": "^4.2.0",
     "grunt": "~0.4.5",
     "grunt-cli": "^0.1.13",
     "grunt-contrib-connect": "^1.0.2",
+    "grunt-contrib-watch": "^1.1.0",
     "grunt-decomment": "^0.2.4",
     "grunt-eslint": "^20.0.0",
+    "grunt-karma": "^4.0.0",
     "grunt-mocha": "^1.0.4",
     "grunt-open": "^0.2.3",
     "grunt-webpack": "^3.1.3",
+    "karma": "^5.0.2",
+    "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^3.1.0",
+    "karma-mocha": "^2.0.0",
+    "karma-webpack": "^4.0.2",
+    "mocha": "^7.1.1",
+    "p5": "^1.0.0",
     "raw-loader": "^3.0.0",
     "uglify-loader": "^3.0.0",
     "uglifyjs-webpack-plugin": "^2.1.3",
     "webpack": "^4.33.0",
-    "webpack-auto-inject-version": "^1.2.2"
+    "webpack-auto-inject-version": "^1.2.2",
+    "webpack-cli": "^3.3.11"
   },
   "scripts": {
     "build": "grunt",
     "test": "grunt run-tests",
     "lint": "grunt lint",
-    "dev": "grunt dev"
+    "dev": "grunt dev",
+    "build2": "webpack --env karma",
+    "test2": "karma start --single-run --browsers ChromeHeadless karma.conf.js",
+    "run2": "yarn build2 && yarn test2",
+    "run3": "grunt run3"
   }
 }

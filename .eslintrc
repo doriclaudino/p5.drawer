@@ -3,6 +3,7 @@
     "jasmine": true,
     "node": true,
     "mocha": true,
+    "chai": true,
     "browser": true,
     "builtin": true,
     "es6": true
