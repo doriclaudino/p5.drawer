@@ -133,8 +133,8 @@ define(function () {
      * @param coordinate vector where you want to move
      * @param replaceSpeed override the speed for next movements until reach the target
      */
-    moveTo(coordinate, replaceSpeed) {
-      this.targetPosition = coordinate;
+    moveTo(x, y, replaceSpeed) {
+      this.targetPosition = p5.instance.createVector(x, y);
       this.startMovement(replaceSpeed);
     }
 
@@ -206,17 +206,6 @@ define(function () {
       this.position = nextPositionVector;
     }
   }
-
-  // p5.Drawer = function (image, sound, tipPosition) {
-  //   this.speed = 2;
-  //   this.image = image;
-  //   this.sound = sound;
-  //   this.position = p5.prototype.createVector(0, 0);
-  //   this.targetPosition = p5.prototype.createVector(0, 0);
-  //   this.saveSteps = true;
-  //   this.penTipPosition = tipPosition || p5.prototype.createVector(-52, -128);
-  //   this.steps = [];
-  // };
 
   p5.Drawer = Drawer;
   p5.prototype.createDrawer = function (image, sound, tipPosition) {
