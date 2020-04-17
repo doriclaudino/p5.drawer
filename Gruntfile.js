@@ -7,7 +7,7 @@ module.exports = function (grunt) {
       any: {
         // remove comments added by webpack from the build
         files: {
-          './lib/p5.sound.js': './lib/p5.sound.js',
+          './dist/p5.drawer.js': './dist/p5.drawer.js',
         },
         options: {
           ignore: [
