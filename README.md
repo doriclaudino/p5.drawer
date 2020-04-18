@@ -13,9 +13,11 @@
 <br>
 Create a drawer animation emulating Scribit, AxiDraw extremely easy.
 <br>
+<div>
 <img src="https://i.imgur.com/emokMlD.png" width="200">
 <img src="https://imgur.com/AevdDH0.png" width="200">
 <img src="https://imgur.com/nbt0qGb.png" width="200">
+</div>
 
 ### Requirements
 
