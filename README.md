@@ -30,8 +30,11 @@ Create a drawer animation emulating Scribit, AxiDraw extremely easy.
 ### Install
 
 ```bash
-
-<script src="https://raw.githack.com/doriclaudino/p5.drawer/master/dist/p5.drawer.es5.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/p5.drawer@1.0.0/dist/p5.drawer.min.js"></script>
+or 
+<script src="https://raw.githack.com/doriclaudino/p5.drawer/master/dist/p5.drawer.min.js"></script>;
+or
+import 'p5.drawer' 
 ```
 
 **Start coding!**
