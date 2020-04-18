@@ -110,6 +110,5 @@ module.exports = function (grunt) {
     'watch',
   ]);
   grunt.registerTask('serve', 'connect:server:keepalive');
-  grunt.registerTask('run-tests', ['serve', 'open']);
-  grunt.registerTask('coverage', ['clean:coverage', 'karma']);
+  grunt.registerTask('run-tests', ['clean:coverage', 'karma']);
 };
