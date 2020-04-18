@@ -1,10 +1,10 @@
 'use strict';
-const webpackConfig = require('./webpack.config1.js');
+const webpackConfig = require('./webpack.config.js');
 module.exports = function (config) {
   config.set({
     frameworks: ['mocha', 'chai'],
     files: [
-      'test/karma_test.js',
+      'test/coverage/**.js',
       {
         //assets
         pattern: 'test/testAssets/*.*',
@@ -15,10 +15,36 @@ module.exports = function (config) {
       },
     ],
     //report type
-    reporters: ['progress'],
+    reporters: ['progress', 'coverage'],
     //transpile
     preprocessors: {
-      'test/karma_test.js': ['webpack'],
+      'test/coverage/**.js': ['webpack', 'coverage'],
+    },
+    coverageReporter: {
+      instrumenters:{
+
+      },
+      reporters: [
+        {
+          type: 'lcovonly',
+          dir: 'coverage',
+          subdir: 'report-lcov',
+        },
+        { type: 'html', subdir: 'report-html', dir: 'coverage' },
+        {
+          type: 'cobertura',
+          dir: 'coverage',
+          subdir: '.',
+          file: 'cobertura.txt',
+        },
+        {
+          type: 'teamcity',
+          dir: 'coverage',
+          subdir: '.',
+          file: 'teamcity.txt',
+        },
+        { type: 'json', dir: 'coverage', subdir: '.' },
+      ],
     },
     port: 9876, // karma web server port
     colors: true,

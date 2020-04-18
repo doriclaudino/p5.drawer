@@ -18,10 +18,12 @@
     "chai": "^4.2.0",
     "grunt": "~0.4.5",
     "grunt-cli": "^0.1.13",
+    "grunt-contrib-clean": "^2.0.0",
     "grunt-contrib-connect": "^1.0.2",
     "grunt-contrib-watch": "^1.1.0",
     "grunt-decomment": "^0.2.4",
     "grunt-eslint": "^20.0.0",
+    "grunt-istanbul": "^0.8.0",
     "grunt-karma": "^4.0.0",
     "grunt-mocha": "^1.0.4",
     "grunt-open": "^0.2.3",
@@ -29,6 +31,7 @@
     "karma": "^5.0.2",
     "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^3.1.0",
+    "karma-coverage": "^2.0.2",
     "karma-mocha": "^2.0.0",
     "karma-webpack": "^4.0.2",
     "mocha": "^7.1.1",
@@ -45,9 +48,6 @@
     "test": "grunt run-tests",
     "lint": "grunt lint",
     "dev": "grunt dev",
-    "build2": "webpack --env karma",
-    "test2": "karma start --single-run --browsers ChromeHeadless karma.conf.js",
-    "run2": "yarn build2 && yarn test2",
     "coverage": "grunt coverage"
   }
 }

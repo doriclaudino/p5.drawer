@@ -1,4 +1,4 @@
-const webpackConfig = require('./webpack.config1.js');
+const webpackConfig = require('./webpack.config.js');
 
 module.exports = function (grunt) {
   grunt.initConfig({
@@ -23,7 +23,7 @@ module.exports = function (grunt) {
     eslint: {
       source: {
         options: { configFile: './.eslintrc' },
-        src: ['src/**/*.js', 'test/tests/**/*.js'],
+        src: ['src/**/*.js','test/**/*test*.js'],
       },
     },
     watch: {
@@ -35,7 +35,7 @@ module.exports = function (grunt) {
         tasks: ['devBuild'],
       },
       testDir: {
-        files: ['test/**/**/*.js', 'test/**/**/*.html'],
+        files: ['test/bdd/*test*.js', 'test/index.html'],
         tasks: [],
       },
       configFiles: {
@@ -55,6 +55,10 @@ module.exports = function (grunt) {
       prod: webpackConfig.prod,
       dev: webpackConfig.dev,
       test: webpackConfig.test,
+    },
+    clean: {
+      coverage: ['coverage'],
+      dist: ['dist'],
     },
     open: {
       testChrome: {
@@ -88,6 +92,8 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-decomment');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-karma');
+  grunt.loadNpmTasks('grunt-istanbul');
+  grunt.loadNpmTasks('grunt-contrib-clean');
 
   grunt.registerTask('lint', ['eslint:source']);
   grunt.registerTask('default', ['lint', 'webpack:prod', 'decomment']);
@@ -100,5 +106,5 @@ module.exports = function (grunt) {
   ]);
   grunt.registerTask('serve', 'connect:server:keepalive');
   grunt.registerTask('run-tests', ['serve', 'open']);
-  grunt.registerTask('coverage', ['karma']);
+  grunt.registerTask('coverage', ['clean:coverage','karma']);
 };

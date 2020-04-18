@@ -2,8 +2,7 @@
   "env": {
     "jasmine": true,
     "node": true,
-    "mocha": true,
-    "chai": true,
+    "mocha": true,    
     "browser": true,
     "builtin": true,
     "es6": true
@@ -12,6 +11,7 @@
     "createDrawer": true,
     "loadSound": true,
     "loadImage": true,
+    "chai": true,
     "p5": true,
     "define": true,
     "Float32Array": true,
