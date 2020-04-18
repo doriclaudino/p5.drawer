@@ -8,7 +8,9 @@ jobs:
       - image: circleci/node:10.0-browsers
     steps:
       - checkout
-      - run: sudo apt-get update && sudo apt-get install -y curl
+      - node/install:
+          install-yarn: true
+          node-version: latest
       - run: yarn
       - run: yarn build
       - run: 'export DISPLAY=:0.0'
