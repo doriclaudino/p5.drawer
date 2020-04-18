@@ -4,6 +4,19 @@
     "type": "git",
     "url": "https://github.com/doriclaudino/p5.drawer.git"
   },
+  "author": "Dori Claudino <doriclaudino@gmail.com> @doriclaudino",
+  "description": "Mock and generate a drawer on top of your sketch.",
+  "keywords": [
+    "sketch",
+    "p5js",
+    "processing",
+    "drawer",
+    "scribit",
+    "axidraw",
+    "p5sound",
+    "art",
+    "creative"
+  ],
   "main": "dist/p5.drawer.js",
   "module": "dist/p5.drawer.js",
   "version": "1.1.0",
@@ -11,6 +24,12 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
+  "files": [
+    "dist/p5.drawer.js",
+    "dist/p5.drawer.js.map",
+    "dist/p5.drawer.min.js",
+    "dist/p5.drawer.min.js.map"
+  ],
   "devDependencies": {
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
