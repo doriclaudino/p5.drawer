@@ -3,6 +3,7 @@
 [![NPM](https://nodei.co/npm/p5.drawer.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/p5.drawer/)
 
 [![](https://data.jsdelivr.com/v1/package/npm/p5.drawer/badge?style=rounded)](https://www.jsdelivr.com/package/npm/p5.drawer)
+[![npm version](https://badge.fury.io/js/p5.drawer.svg)](https://badge.fury.io/js/p5.drawer)
 
 [![CircleCI](https://circleci.com/gh/doriclaudino/p5.drawer/tree/master.svg?style=svg)](https://circleci.com/gh/doriclaudino/p5.drawer/tree/master)
 [![codecov](https://codecov.io/gh/doriclaudino/p5.drawer/branch/master/graph/badge.svg)](https://codecov.io/gh/doriclaudino/p5.drawer)
