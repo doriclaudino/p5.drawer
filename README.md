@@ -1,7 +1,11 @@
 # p5Drawer
 
+[![Build Status](https://travis-ci.org/doriclaudino/p5.drawer.png?branch=master)](https://travis-ci.org/doriclaudino/p5.drawer)
+[![codecov](https://codecov.io/gh/doriclaudino/p5.drawer/branch/master/graph/badge.svg)](https://codecov.io/gh/doriclaudino/p5.drawer)
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
-[![Greenkeeper badge](https://badges.greenkeeper.io/alexjoverm/typescript-library-starter.svg)](https://greenkeeper.io/)
+
+
+[![CircleCI](https://circleci.com/gh/doriclaudino/p5.drawer/tree/master.svg?style=svg)](https://circleci.com/gh/doriclaudino/p5.drawer/tree/master)
 
 Create a drawer animation emulating Scribit, AxiDraw extremely easy.
 <br>
