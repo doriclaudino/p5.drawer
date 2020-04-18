@@ -1,4 +1,4 @@
-/** [p5.drawer]  Version: 1.1.0 - 2020-04-18 */ 
+/** [p5.drawer]  Version: 2.0.0 - 2020-04-18 */ 
  /**
  *  <p>p5.drawer extends p5 with custom drawers on top of your canvas
  *  </p>
