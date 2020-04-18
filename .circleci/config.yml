@@ -1,23 +1,18 @@
 version: 2.1
 orbs:
-  node: circleci/node@1.1.6
+  node: circleci/node@2.0.2
 jobs:
-  build-and-test:
+  install-node-example:
     docker:
-      - image: selenium/standalone-chrome:3.1.0     
-      - image: circleci/node:10.16.3
-        environment: 
-          CHROME_BIN=/usr/bin/google-chrome  
-    executor:
-      name: node/default    
+      - image: selenium/standalone-chrome:3.1.0 
     steps:
       - checkout
-      - node/with-cache:
-          steps:
-            - run: npm install
-            - run: npm run build
-            - run: npm run coverage              
+      - node/install:
+          install-yarn: true
+          node-version: latest
+      - run: node --version
+      - run: yarn --version
 workflows:
   build-and-test:
     jobs:
-      - build-and-test
+      - install-node-example
