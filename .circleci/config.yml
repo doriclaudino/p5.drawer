@@ -19,7 +19,7 @@ jobs:
       - run: 'export DISPLAY=:0.0'
       - run: yarn test
       - codecov/upload:
-        file: 'coverage/report-lcov/lcov.info'
+        file: 'coverage/coverage-final.json'
       - store_artifacts:
           path: coverage
       
