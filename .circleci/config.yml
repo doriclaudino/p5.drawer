@@ -3,15 +3,19 @@ orbs:
   node: circleci/node@1.1.6
 jobs:
   build-and-test:
+    docker:
+      - image: selenium/standalone-chrome:3.1.0     
+        environment: 
+          CHROME_BIN:/usr/bin/google-chrome  
     executor:
-      name: node/default
+      name: node/default    
     steps:
       - checkout
       - node/with-cache:
           steps:
             - run: npm install
             - run: npm run build
-            - run: npm run coverage
+            - run: npm run coverage              
 workflows:
   build-and-test:
     jobs:
