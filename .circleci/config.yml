@@ -18,8 +18,8 @@ jobs:
       - run: yarn build
       - run: 'export DISPLAY=:0.0'
       - run: yarn test
-      - run: ls
-      - run: ls coverage
+      - run: echo | ls
+      - run: echo | ls coverage
       - codecov/upload:
         file: 'coverage/coverage-final.json'      
 workflows:
