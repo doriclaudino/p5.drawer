@@ -27,6 +27,7 @@ const common = {
     // where we want to output built files
     path: __dirname + '/dist',
   },
+  devtool: 'source-map',
   module: {
     rules: [
       {
@@ -50,7 +51,6 @@ const prod = {
     'p5.drawer.min': './index.js',
   },
   mode: 'production',
-  devtool: 'source-map',
   optimization: {
     runtimeChunk: true,
   },

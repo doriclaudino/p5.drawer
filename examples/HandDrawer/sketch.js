@@ -89,14 +89,15 @@ function setup() {
   canvas.mouseClicked(saveMouseClick);
   settings = QuickSettings.create(255, 5, 'Simulation Parameters');
 
-  var buttonsHtml = '<div style="display: flex;flex-wrap: nowrap; justify-content: space-around ;">';
+  var buttonsHtml =
+    '<div style="display: flex;flex-wrap: nowrap; justify-content: space-around ;">';
   drawersConfig.forEach((props, index) => {
     buttonsHtml += `<input id="${props.name}" class="qs_button" type="button" value="${props.name}" onClick=changeDrawer(${index})>`;
   });
   buttonsHtml += '</div>';
-  settings.addHTML('drawers',buttonsHtml);
+  settings.addHTML('drawers', buttonsHtml);
 
-  settings.addRange('speed', 1, 500, speed, 1, (_speed) => speed = _speed);
+  settings.addRange('speed', 1, 500, speed, 1, (_speed) => (speed = _speed));
   settings.addText('Distance', 0);
   settings.addText('Position', '0 , 0');
   settings.addText('Target Position', '0 , 0');
@@ -110,8 +111,16 @@ function draw() {
   background(245);
   if (drawer) {
     settings.setValue('Distance', parseInt(drawer.targetDistance));
-    settings.setValue('Position', `${parseInt(drawer.position.x)} , ${parseInt(drawer.position.y)}`);
-    settings.setValue('Target Position', `${parseInt(drawer.targetPosition.x)} , ${parseInt(drawer.targetPosition.y)}`);
+    settings.setValue(
+      'Position',
+      `${parseInt(drawer.position.x)} , ${parseInt(drawer.position.y)}`
+    );
+    settings.setValue(
+      'Target Position',
+      `${parseInt(drawer.targetPosition.x)} , ${parseInt(
+        drawer.targetPosition.y
+      )}`
+    );
 
     /**
      * loop to positions saved on drawer
@@ -129,9 +138,11 @@ function draw() {
     /**
      * move drawer to the next position
      */
-    if (lastClickOnCanvas)
-      drawer.moveTo(lastClickOnCanvas, speed);
-
+    if (lastClickOnCanvas) {
+      const { x, y } = lastClickOnCanvas;
+      drawer.moveTo(x, y, speed);
+    }
+    
 
     /**
      * generate new position if stop moving

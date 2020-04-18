@@ -23,20 +23,25 @@ module.exports = function (grunt) {
     eslint: {
       source: {
         options: { configFile: './.eslintrc' },
-        src: ['src/**/*.js','test/**/*test*.js'],
+        src: ['src/**/*.js', 'test/**/*test*.js'],
       },
     },
     watch: {
       options: {
         livereload: true,
       },
+      exampleDir: {
+        files: ['examples/**/*.*'],
+      },
       distDir: {
         files: ['src/**/*.js'],
         tasks: ['devBuild'],
+        options: {
+          reload: true,
+        },
       },
       testDir: {
         files: ['test/bdd/*test*.js', 'test/index.html'],
-        tasks: [],
       },
       configFiles: {
         files: ['Gruntfile.js', 'webpack.config.js'],
@@ -106,5 +111,5 @@ module.exports = function (grunt) {
   ]);
   grunt.registerTask('serve', 'connect:server:keepalive');
   grunt.registerTask('run-tests', ['serve', 'open']);
-  grunt.registerTask('coverage', ['clean:coverage','karma']);
+  grunt.registerTask('coverage', ['clean:coverage', 'karma']);
 };
