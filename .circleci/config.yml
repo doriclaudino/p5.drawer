@@ -7,8 +7,8 @@ jobs:
       - image: selenium/standalone-chrome:3.1.0 
     steps:
       - checkout
-      - sudo apt-get upgrade
-      - sudo apt-get install curl
+      - run: sudo apt-get upgrade
+      - run: sudo apt-get install curl
       - node/install:
           install-yarn: true
           node-version: latest
