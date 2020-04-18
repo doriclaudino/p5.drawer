@@ -1,19 +1,20 @@
 version: 2.1
 orbs:
   node: circleci/node@1.1.6
-  codecov: codecov/codecov@1.0.2
 jobs:
-  build-and-test:
-    executor:
-      name: node/default
+  install:
     steps:
       - checkout
-      - node/with-cache:
-          steps:
-            - run: npm install
-            - run: npm test
+      - run: npm install
+  build:
+    steps:
+      - run: npm run build
+  test:
+    steps:
+      - run: npm run coverage
 workflows:
-    build-and-test:
-      jobs:
-        - build-and-test
-after_success: npm run coverage        
+  build-and-test:
+    jobs:
+      - install
+      - build
+      - test
