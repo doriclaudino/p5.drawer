@@ -11,11 +11,15 @@ jobs:
       name: node/default    
     steps:
       - checkout
+      - node/install:
+          install-yarn: true
+          node-version: latest
+      - run: node --version
       - node/with-cache:
           steps:
-            - run: npm install
-            - run: npm run build
-            - run: npm run coverage              
+            - run: yarn
+            - run: yarn build
+            - run: yarn coverage              
 workflows:
   build-and-test:
     jobs:
