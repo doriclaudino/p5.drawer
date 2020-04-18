@@ -4,17 +4,13 @@ orbs:
 jobs:
   build-and-test:
     docker:
-      - image: node:12-browsers
+      - image: circleci/node:12.16.1-browsers     
         environment: 
           CHROME_BIN=/usr/bin/google-chrome  
     executor:
       name: node/default    
     steps:
       - checkout
-      - node/install:
-          install-yarn: true
-          node-version: latest
-      - run: node --version
       - node/with-cache:
           steps:
             - run: yarn
@@ -24,3 +20,7 @@ workflows:
   build-and-test:
     jobs:
       - build-and-test
+
+
+
+      docker pull circleci/node
