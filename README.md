@@ -56,8 +56,7 @@ function preload() {
   myDrawer = createDrawer(img,sound,pos);
 }
 ```
-
-![](https://media.giphy.com/media/cPZgDCNRnHFhM9feia/giphy.gif)
+![](https://media.giphy.com/media/U3hHR6jI6XbOfdH9Ka/giphy.gif)
 
 ### Features
 
