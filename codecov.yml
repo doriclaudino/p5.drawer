@@ -1,0 +1,3 @@
+fixes:
+  - "before/test-*::after/"
+test/coverage/p5.drawer.test.js

@@ -5,7 +5,7 @@ orbs:
 jobs:
   install-node-example:
     docker:
-      - image: selenium/standalone-chrome:3.1.0 
+      - image: circleci/node:10.0-browsers
     steps:
       - checkout
       - run: sudo apt-get update && sudo apt-get install -y curl
@@ -17,9 +17,11 @@ jobs:
       - run: yarn
       - run: yarn build
       - run: 'export DISPLAY=:0.0'
-      - run: yarn coverage
+      - run: yarn test
       - codecov/upload:
         file: 'coverage/report-lcov/lcov.info'
+      - store_artifacts:
+          path: coverage
       
 workflows:
   build-and-test:
