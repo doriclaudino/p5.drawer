@@ -1,12 +1,14 @@
 version: 2.1
 orbs:
   node: circleci/node@2.0.2
+  jq: circleci/jq@2.0.1
 jobs:
   install-node-example:
     docker:
       - image: selenium/standalone-chrome:3.1.0 
     steps:
       - checkout
+      - jq/install
       - node/install:
           install-yarn: true
           node-version: latest
