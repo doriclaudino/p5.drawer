@@ -3,17 +3,11 @@ orbs:
   node: circleci/node@2.0.2
   codecov: codecov/codecov@1.0.5
 jobs:
-  install-node-example:
+  build:
     docker:
       - image: circleci/node:10.0-browsers
     steps:
       - checkout
-      - run: sudo apt-get update && sudo apt-get install -y curl
-      - node/install:
-          install-yarn: true
-          node-version: latest
-      - run: node --version
-      - run: yarn --version
       - run: yarn
       - run: yarn build
       - run: 'export DISPLAY=:0.0'
@@ -22,7 +16,3 @@ jobs:
       - run: echo | ls coverage
       - codecov/upload:
         file: 'coverage/coverage-final.json'      
-workflows:
-  build-and-test:
-    jobs:
-      - install-node-example

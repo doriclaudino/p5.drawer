@@ -66,6 +66,8 @@
     "build": "grunt",
     "test": "grunt run-tests",
     "lint": "grunt lint",
-    "dev": "grunt dev"
+    "dev": "grunt dev",
+    "ci:validate": "circleci config validate",
+    "ci:executeLocal": "circleci local execute"
   }
 }
