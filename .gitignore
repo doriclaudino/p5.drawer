@@ -5,3 +5,5 @@ p5soundnotes
 *.DS_Store
 .vscode
 coverage
+yarn-error.log
+debug.log

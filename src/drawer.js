@@ -11,10 +11,6 @@ define(function () {
       this._saveSteps = true;
       this._penTipPosition = tipPosition || p5.instance.createVector(0, 0);
       this._steps = [];
-      if (!this._image || !this._sound)
-        console.warn(
-          'Make sure to load the image and sound on preload(), we remove the boths from build. See the example folder.'
-        );
     }
 
     get speed() {

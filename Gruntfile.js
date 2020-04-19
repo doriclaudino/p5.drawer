@@ -1,93 +1,93 @@
 const webpackConfig = require('./webpack.config.js');
 
-module.exports = function (grunt) {
+module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     decomment: {
       any: {
         // remove comments added by webpack from the build
         files: {
-          './dist/p5.drawer.js': './dist/p5.drawer.js',
+          './dist/p5.drawer.js': './dist/p5.drawer.js'
         },
         options: {
           ignore: [
             // keep JSDoc comments (p5.js repo's YUIDoc task parses those for documentation)
             /\/\*\*\s*\n([^\*]|(\*(?!\/)))*\*\//g,
             // keep the version number
-            /.*Version.*/,
-          ],
-        },
-      },
+            /.*Version.*/
+          ]
+        }
+      }
     },
     // Configure style consistency
     eslint: {
       source: {
         options: { configFile: './.eslintrc' },
-        src: ['src/**/*.js', 'test/**/*test*.js'],
-      },
+        src: ['src/**/*.js']
+      }
     },
     watch: {
       options: {
-        livereload: true,
+        livereload: true
       },
       exampleDir: {
-        files: ['examples/**/*.*'],
+        files: ['examples/**/*.*']
       },
       distDir: {
         files: ['src/**/*.js'],
         tasks: ['devBuild'],
         options: {
-          reload: true,
-        },
+          reload: true
+        }
       },
       testDir: {
-        files: ['test/bdd/*test*.js', 'test/index.html'],
+        files: ['test/**/*test*.js', 'test/index.html']
       },
       configFiles: {
         files: ['Gruntfile.js', 'webpack.config.js'],
         options: {
-          reload: true,
-        },
-      },
+          reload: true
+        }
+      }
     },
     karma: {
       unit: {
         configFile: 'karma.conf.js',
-        singleRun: true,
-      },
+        singleRun: true
+      }
     },
     webpack: {
       prod: webpackConfig.prod,
       dev: webpackConfig.dev,
-      test: webpackConfig.test,
+      test: webpackConfig.test
     },
     clean: {
       coverage: ['coverage'],
-      dist: ['dist'],
+      dist: ['dist']
     },
     open: {
       testChrome: {
         path: 'http://localhost:8000/test',
-        app: 'Chrome',
+        app: 'Chrome'
       },
       testFirefox: {
         path: 'http://localhost:8000/test',
-        app: 'Firefox',
+        app: 'Firefox'
       },
       testSafari: {
         path: 'http://localhost:8000/test',
-        app: 'Safari',
-      },
+        app: 'Safari'
+      }
     },
     connect: {
       server: {
         options: {
           port: 8000,
           livereload: 35729,
-          hostname: 'localhost',
-        },
-      },
-    },
+          hostname: 'localhost'
+        }
+      }
+    }
   });
 
   grunt.loadNpmTasks('grunt-webpack');
@@ -107,7 +107,7 @@ module.exports = function (grunt) {
     'connect',
     'devBuild',
     'open:testChrome',
-    'watch',
+    'watch'
   ]);
   grunt.registerTask('serve', 'connect:server:keepalive');
   grunt.registerTask('run-tests', ['clean:coverage', 'karma']);

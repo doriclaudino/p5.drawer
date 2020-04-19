@@ -1,6 +1,6 @@
 Gruntfile.js
-test/test.js
-test/testDeps
+test/**/*.js
 webpack.config.js
 lib/
 examples/
+dist/
